@@ -1,26 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
+import Home from './pages/home'
+import ShopPage from './pages/shop';
+import SignInAndSignUpPage from './pages/signInAndSignUpPage';
+import NotFoundPage from './pages/404NotFound';
+import Navbar from './components/navbar';
+import { Route, Switch } from 'react-router-dom'
 import './App.css';
+import { auth, createUserProfileDocument } from './firebase/firebaseUtils'
 
-function App() {
+
+const App: React.FC = () => {
+  const [currentUser, setCurrentUser] = useState<any | null>(null)
+  useEffect(() => {
+    const authUnsub = auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth)
+        userRef?.onSnapshot(snap =>{
+          setCurrentUser({
+            id: snap.id,
+            ...snap.data()
+          })
+        })
+      }else{
+        setCurrentUser(null)
+      }
+    })
+    return () => {
+      authUnsub()
+    }
+  }, [])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Navbar currentUser={currentUser} />
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route exact path="/shop">
+          <ShopPage />
+        </Route>
+        <Route exact path="/login">
+          <SignInAndSignUpPage />
+        </Route>
+        <Route exact path="/signin">
+          <SignInAndSignUpPage />
+        </Route>
+        <Route>
+          <NotFoundPage />
+        </Route>
+      </Switch>
     </div>
-  );
+  )
 }
 
 export default App;
