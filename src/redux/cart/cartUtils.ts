@@ -20,3 +20,14 @@ export const addItemToCart = (cartItems: SavedItem[], newItem: Item) =>{
         return [...cartItems, {...newItem, quantity: 1}]
     }
 }
+
+export const removeItemFromCart = (cartItems: SavedItem[], itemToRemove: SavedItem)=>{
+    return cartItems.filter((item) => item.id !== itemToRemove.id)
+}
+
+export const decreaseQuantityFromCart = (cartItems: SavedItem[], itemToDecrease: SavedItem) =>{
+    return cartItems.map(item =>{
+        if(item.id === itemToDecrease.id) return {...item, quantity: item.quantity -1}
+        return item
+    })
+}

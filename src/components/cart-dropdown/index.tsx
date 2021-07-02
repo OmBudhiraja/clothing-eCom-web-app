@@ -9,7 +9,6 @@ import './index.scss'
 const CartDropdown: React.FC = () => {
     const cartItems = useAppSelector(state => selectCartItems(state))
     const isCartEmpty = !cartItems.length
-    console.log(isCartEmpty)
     const history = useHistory()
     const dispatch = useAppDispatch()
 

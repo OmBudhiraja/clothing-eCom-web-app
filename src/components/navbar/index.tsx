@@ -12,7 +12,6 @@ import './index.scss'
 const Navbar: React.FC = () => {
     const currentUser = useAppSelector((state) => selectUser(state))
     const hidden = useAppSelector(state => selectCartHidden(state) )
-    console.log('nav rendered')
     return (
         <div className="navbar">
             <Link className="logo-container" to="/" >

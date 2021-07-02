@@ -8,7 +8,6 @@ import './index.scss'
 const CartIcon: React.FC = () => {
     const dispatch = useAppDispatch()
     const count = useAppSelector(state => selectCartItemsCount(state))
-    console.log('cart-icon here')
     return (
         <div className="cart-icon" onClick={() => dispatch(toggleCartHidden())}>
             <ShoppingIcon className="shopping-icon" />

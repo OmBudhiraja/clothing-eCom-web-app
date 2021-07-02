@@ -1,5 +1,5 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import {addItemToCart, Item, SavedItem} from './cartUtils'
+import {addItemToCart, removeItemFromCart, Item, SavedItem, decreaseQuantityFromCart} from './cartUtils'
 import {RootState} from '../store'
 
 type CartState = {
@@ -21,11 +21,17 @@ export const CartSlice = createSlice({
         },
         addItem: (state, action: PayloadAction<Item>)=>{
             state.cartItems = addItemToCart(state.cartItems, action.payload)
+        },
+        removeItem: (state, action: PayloadAction<SavedItem>) =>{
+            state.cartItems = removeItemFromCart(state.cartItems, action.payload)
+        },
+        decreaseItemQuantity: (state, action: PayloadAction<SavedItem>)=>{
+            state.cartItems = decreaseQuantityFromCart(state.cartItems, action.payload)
         }
     }
 })
 
-export const {toggleCartHidden, addItem} = CartSlice.actions
+export const {toggleCartHidden, addItem, removeItem, decreaseItemQuantity} = CartSlice.actions
 
 export const selectCartItems = createSelector(
     [(state: RootState)=> state.cart],
