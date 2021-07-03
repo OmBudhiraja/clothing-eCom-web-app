@@ -7,16 +7,13 @@ import './index.scss'
 
 const CartIcon: React.FC = () => {
     const dispatch = useAppDispatch()
-    // const {cartItems} = useAppSelector(state => state.cart)
     const count = useAppSelector(state => selectCartItemsCount(state))
-    // const itemCount: number = cartItems.reduce((acc, cur) => acc + cur.quantity, 0)
     console.log('cart-icon here')
     return (
         <div className="cart-icon" onClick={() => dispatch(toggleCartHidden())}>
             <ShoppingIcon className="shopping-icon" />
             <span className="item-count">
-                {/* {cartItems.length ? itemCount : '-'} */}
-                {count}
+                {count ? count : '-'}
             </span>
         </div>
     )

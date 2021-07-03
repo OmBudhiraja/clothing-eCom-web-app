@@ -5,11 +5,13 @@ import {ReactComponent as Logo} from '../../assets/4.1 crown.svg'
 import { auth } from '../../firebase/firebaseUtils';
 import CartIcon from '../cart-icon'
 import CartDropdown from '../cart-dropdown';
+import {selectUser} from '../../redux/user/userSlice'
+import {selectCartHidden} from '../../redux/cart/cartSlice'
 import './index.scss'
  
 const Navbar: React.FC = () => {
-    const {currentUser} = useAppSelector((state) => state.user)
-    const {hidden} = useAppSelector(state => state.cart)
+    const currentUser = useAppSelector((state) => selectUser(state))
+    const hidden = useAppSelector(state => selectCartHidden(state) )
     console.log('nav rendered')
     return (
         <div className="navbar">

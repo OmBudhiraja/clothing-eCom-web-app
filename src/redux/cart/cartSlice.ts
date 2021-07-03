@@ -37,5 +37,14 @@ export const selectCartItemsCount = createSelector(
     (cartItems) => cartItems.reduce((acc, cur) => acc + cur.quantity, 0)
 )
 
+export const selectCartHidden = createSelector(
+    [(state: RootState)=> state.cart],
+    (cart) => cart.hidden
+)
+
+export const selectCartTotal = createSelector(
+    [selectCartItems],
+    (cartItems) => cartItems.reduce((acc, cur) => acc + (cur.quantity * cur.price), 0)
+)
 
 export default CartSlice.reducer

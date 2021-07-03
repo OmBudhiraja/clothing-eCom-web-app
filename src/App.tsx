@@ -1,20 +1,23 @@
 import React, { useEffect } from 'react';
+
 import Home from './pages/home'
 import ShopPage from './pages/shop';
+import CheckoutPage from './pages/checkout';
 import SignInAndSignUpPage from './pages/signInAndSignUpPage';
 import NotFoundPage from './pages/404NotFound';
+
 import Navbar from './components/navbar';
 import { Route, Switch, Redirect } from 'react-router-dom'
-import {useAppSelector} from './redux/hook'
-import './App.css';
+import {useAppSelector, useAppDispatch} from './redux/hook'
 import { auth, createUserProfileDocument } from './firebase/firebaseUtils'
-import { setCurrentUser } from './redux/user/userSlice';
-import {useAppDispatch} from './redux/hook'
+import { setCurrentUser, selectUser } from './redux/user/userSlice';
+
+import './App.css';
 
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch()
-  const {currentUser} = useAppSelector(state => state.user)
+  const currentUser = useAppSelector(state => selectUser(state))
   useEffect(() => {
     const authUnsub = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
@@ -41,11 +44,14 @@ const App: React.FC = () => {
         <Route exact path="/">
           <Home />
         </Route>
-        <Route exact path="/shop">
+        <Route path="/shop">
           <ShopPage />
         </Route>
         <Route exact path="/login">
           {currentUser ? <Redirect to='/' /> : <SignInAndSignUpPage /> }
+        </Route>
+        <Route exact path="/checkout">
+          <CheckoutPage />
         </Route>
         <Route>
           <NotFoundPage />

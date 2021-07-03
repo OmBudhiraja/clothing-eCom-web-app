@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit'
+import {RootState} from '../store'
 
 type UserState = {
     currentUser: null | {}
@@ -19,5 +20,10 @@ export const UserSlice = createSlice({
 })
 
 export const { setCurrentUser } = UserSlice.actions
+
+export const selectUser = createSelector(
+    [(state: RootState) => state.user],
+    (user) => user.currentUser
+)
 
 export default UserSlice.reducer
