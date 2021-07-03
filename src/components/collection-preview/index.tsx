@@ -20,8 +20,8 @@ const CollectionPreview: React.FC<Props> = ({title, items}) => {
         <div className="collection-preview">
             <h1 role="link" onClick={() => {} } className="title">{title.toUpperCase()}</h1>
             <div className="preview">
-                {items.filter((_ , index) => index < 4 ).map(({id, ...otherProps}) => (
-                    <CollectionItem key={id} {...otherProps} />
+                {items.filter((_ , index) => index < 4 ).map((item: Item) => (
+                    <CollectionItem key={item.id} item={item} />
                 ))}
             </div>
         </div>
