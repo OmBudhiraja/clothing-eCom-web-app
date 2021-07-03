@@ -30,7 +30,7 @@ export const createUserProfileDocument = async (userAuth: any, additionalData?: 
 
   if(!snapshot.exists){
     const {email, displayName} = userAuth
-    const createdAt = firebase.firestore.Timestamp.fromDate(new Date())
+    const createdAt = new Date()
     try{
       await userRef.set({
         displayName,

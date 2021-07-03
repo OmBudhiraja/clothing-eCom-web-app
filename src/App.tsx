@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Home from './pages/home'
 import ShopPage from './pages/shop';
 import SignInAndSignUpPage from './pages/signInAndSignUpPage';
 import NotFoundPage from './pages/404NotFound';
 import Navbar from './components/navbar';
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
+import {useAppSelector} from './redux/hook'
 import './App.css';
 import { auth, createUserProfileDocument } from './firebase/firebaseUtils'
 import { setCurrentUser } from './redux/user/userSlice';
@@ -13,7 +14,7 @@ import {useAppDispatch} from './redux/hook'
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch()
-  // const [currentUser, setCurrentUser] = useState<any | null>(null)
+  const {currentUser} = useAppSelector(state => state.user)
   useEffect(() => {
     const authUnsub = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
@@ -31,7 +32,8 @@ const App: React.FC = () => {
     return () => {
       authUnsub()
     }
-  }, [])
+  }, [dispatch])
+
   return (
     <div>
       <Navbar />
@@ -43,10 +45,7 @@ const App: React.FC = () => {
           <ShopPage />
         </Route>
         <Route exact path="/login">
-          <SignInAndSignUpPage />
-        </Route>
-        <Route exact path="/signin">
-          <SignInAndSignUpPage />
+          {currentUser ? <Redirect to='/' /> : <SignInAndSignUpPage /> }
         </Route>
         <Route>
           <NotFoundPage />

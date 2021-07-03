@@ -3,12 +3,13 @@ import {Link} from 'react-router-dom'
 import {useAppSelector} from '../../redux/hook'
 import {ReactComponent as Logo} from '../../assets/4.1 crown.svg'
 import { auth } from '../../firebase/firebaseUtils';
+import CartIcon from '../cart-icon'
+import CartDropdown from '../cart-dropdown';
 import './index.scss'
-
-
  
 const Navbar: React.FC = () => {
     const {currentUser} = useAppSelector((state) => state.user)
+    const {hidden} = useAppSelector(state => state.cart)
     return (
         <div className="navbar">
             <Link className="logo-container" to="/" >
@@ -22,8 +23,12 @@ const Navbar: React.FC = () => {
                     CONTACT
                 </Link>
                 {currentUser ? (
-                    <div className="option" onClick={()=> auth.signOut()}>SIGN OUT</div>
-                ) : <Link className="option" to="/login">SIGN IN</Link>}
+                   <>
+                        <div className="option" onClick={()=> auth.signOut()}>SIGN OUT</div>
+                        <CartIcon />
+                        { !hidden && <CartDropdown />}
+                   </>
+                ) :( <Link className="option" to="/login">SIGN IN</Link>)}
             </div>
         </div>
     )
