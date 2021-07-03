@@ -18,12 +18,12 @@
       overflow-y: auto;
       &::-webkit-scrollbar{
         width: 8px;
-        background: rgb(34, 33, 33);
+        background: white;
         border-radius: 20px;
       }
       &::-webkit-scrollbar-thumb{
-        background: rgb(238, 229, 229);
-        border-radius: 2px;
+        background: rgb(78, 71, 71);
+        border-radius: 15px;
       }
     }
   

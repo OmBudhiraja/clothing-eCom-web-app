@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import {addItemToCart} from './cartUtils'
+import {addItemToCart, Item, SavedItem} from './cartUtils'
 
 type CartState = {
     hidden: boolean,
-    cartItems: {}[]
+    cartItems: SavedItem[]
 }
 
 const initialState: CartState = {
@@ -18,8 +18,8 @@ export const CartSlice = createSlice({
         toggleCartHidden: (state) =>{
             state.hidden = !state.hidden
         },
-        addItem: (state, action: PayloadAction<object>)=>{
-            state.cartItems = addItemToCart(state.cartItems,action.payload)
+        addItem: (state, action: PayloadAction<Item>)=>{
+            state.cartItems = addItemToCart(state.cartItems, action.payload)
         }
     }
 })
