@@ -1,14 +1,14 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import {useAppSelector} from '../../redux/hook'
 import {ReactComponent as Logo} from '../../assets/4.1 crown.svg'
 import { auth } from '../../firebase/firebaseUtils';
 import './index.scss'
 
-interface Props {
-    currentUser : null | {name: string; email: string; id: string}
-}
+
  
-const Navbar: React.FC<Props> = ({currentUser}) => {
+const Navbar: React.FC = () => {
+    const {currentUser} = useAppSelector((state) => state.user)
     return (
         <div className="navbar">
             <Link className="logo-container" to="/" >
