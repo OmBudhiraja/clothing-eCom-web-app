@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import {addItemToCart, Item, SavedItem} from './cartUtils'
+import {RootState} from '../store'
 
 type CartState = {
     hidden: boolean,
@@ -25,5 +26,16 @@ export const CartSlice = createSlice({
 })
 
 export const {toggleCartHidden, addItem} = CartSlice.actions
+
+export const selectCartItems = createSelector(
+    [(state: RootState)=> state.cart],
+    (cart) => cart.cartItems
+)
+
+export const selectCartItemsCount = createSelector(
+    [selectCartItems],
+    (cartItems) => cartItems.reduce((acc, cur) => acc + cur.quantity, 0)
+)
+
 
 export default CartSlice.reducer
