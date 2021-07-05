@@ -5,10 +5,11 @@ import './index.scss'
 interface Props {
     title: string;
     imageUrl: string;
-    size: 'lg' | 'sm'
+    size: 'lg' | 'sm',
+    linkUrl: string
 }
 
-const MenuItem: React.FC<Props> = ({title, imageUrl, size}) => {
+const MenuItem: React.FC<Props> = ({title, imageUrl, size, linkUrl}) => {
     const history = useHistory()
     const currentPath = history.location.pathname
     const style = {
@@ -17,7 +18,7 @@ const MenuItem: React.FC<Props> = ({title, imageUrl, size}) => {
     }
 
     return (
-        <div onClick={()=> history.push(`${currentPath}${title}`)} className={`menu-item ${size === 'lg' ? 'large': ''}`}>
+        <div onClick={()=> history.push(`${linkUrl}`)} className={`menu-item ${size === 'lg' ? 'large': ''}`}>
           <div style={style} className="bg-image"></div>
           <div className='content'>
             <h1 className='title'>{title.toUpperCase()}</h1>
