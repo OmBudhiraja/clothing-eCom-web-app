@@ -2,6 +2,7 @@ import React from 'react'
 import {useAppSelector} from '../../redux/hook'
 import {selectCartItems, selectCartTotal} from '../../redux/cart/cartSlice'
 import CheckoutItem from '../../components/checkout-item'
+import StripeCheckoutButton from '../../components/stripe-button'
 import './index.scss'
 
 const CheckoutPage: React.FC = () => {
@@ -36,6 +37,12 @@ const CheckoutPage: React.FC = () => {
             <div className="total">
                 <span>TOTAL: ${cartTotal}</span>
             </div>
+            <div className="test-warning">
+                *Please use the following test credit card for payments
+                <br />
+                4242 4242 4242 4242 - Exp: 1/22 - CVV: 123
+            </div>
+            <StripeCheckoutButton price={cartTotal} />
         </div>
     )
 }
