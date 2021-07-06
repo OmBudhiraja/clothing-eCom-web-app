@@ -1,5 +1,4 @@
 import React from 'react'
-import { isElementOfType } from 'react-dom/test-utils';
 import { useParams } from 'react-router-dom';
 import CollectionItem from '../../components/collection-item';
 // import CollectionItem from '../../components/collection-item';

@@ -13,7 +13,7 @@ const CollectionOverview: React.FC = () => {
                 key={collection.id}
                 title={collection.title}
                 items={collection.items}
-                // routeName={collection.routeName}
+                routeName={collection.routeName}
                 />
             )}
         </div>

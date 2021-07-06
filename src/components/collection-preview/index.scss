@@ -1,12 +1,20 @@
 .collection-preview {
     display: flex;
     flex-direction: column;
-    margin-bottom: 30px;
-  
-    .title {
-      font-size: 28px;
+    margin-bottom: 50px;
+    .head{
       margin-bottom: 25px;
+      display: flex;
+      justify-content: space-between;
+      .title {
+        font-size: 28px;
+      }
+      .link{
+        color: rgb(86, 86, 197);
+        cursor: pointer;
+      }
     }
+    
   
     .preview {
       display: flex;

@@ -2,7 +2,7 @@ const shopData = {
 hats:{
   id: 1,
   title: 'Hats',
-  routeName: 'shop/hats',
+  routeName: '/shop/hats',
   items: [
     {
       id: 1,
@@ -63,7 +63,7 @@ hats:{
 sneakers:{
   id: 2,
   title: 'Sneakers',
-  routeName: 'shop/sneakers',
+  routeName: '/shop/sneakers',
   items: [
     {
       id: 10,
@@ -118,7 +118,7 @@ sneakers:{
 jackets:{
   id: 3,
   title: 'Jackets',
-  routeName: 'shop/jackets',
+  routeName: '/shop/jackets',
   items: [
     {
       id: 18,
@@ -155,7 +155,7 @@ jackets:{
 womens:{
   id: 4,
   title: 'Womens',
-  routeName: 'shop/womens',
+  routeName: '/shop/womens',
   items: [
     {
       id: 23,
@@ -204,7 +204,7 @@ womens:{
 mens:{
   id: 5,
   title: 'Mens',
-  routeName: 'shop/mens',
+  routeName: '/shop/mens',
   items: [
     {
       id: 30,
