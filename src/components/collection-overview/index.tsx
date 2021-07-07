@@ -8,7 +8,7 @@ const CollectionOverview: React.FC = () => {
     const collections = useAppSelector(state => selectCollectionsForPreview(state))
     return (
         <CollectionOverviewContainer>
-            {collections.map((collection: any) =>
+            {collections && collections.map((collection: any) =>
                 <CollectionPreview
                 key={collection.id}
                 title={collection.title}

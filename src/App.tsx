@@ -18,6 +18,8 @@ import './App.css';
 const App: React.FC = () => {
   const dispatch = useAppDispatch()
   const currentUser = useAppSelector(state => selectUser(state))
+
+
   useEffect(() => {
     const authUnsub = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
