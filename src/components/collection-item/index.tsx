@@ -2,8 +2,7 @@ import React from 'react'
 import CustomButton from '../custom-button'
 import { useAppDispatch } from '../../redux/hook';
 import { addItem } from '../../redux/cart/cartSlice';
-import './index.scss' 
-
+import styled from 'styled-components'
 
 interface Props {
     item:{
@@ -17,26 +16,75 @@ interface Props {
 const CollectionItem: React.FC<Props> = ({item}) => {
     const dispatch = useAppDispatch()
     const { name, imageUrl, price} = item
-    const style ={
-        backgroundImage: `url(${imageUrl})`,
-        backgroundSize: '100% 100%',
-    }
 
     const addCartHandler = ()=>{
         dispatch(addItem(item))
     }
 
     return (
-        <div className="collection-item" >
-            <div style={style} className="image">
+        <CollectionItemContainer >
+            <ImageContainer imageUrl={imageUrl} className="image">
                 <CustomButton inverted onClick={addCartHandler}> ADD TO CART </CustomButton>
-            </div>
-            <div className="collection-footer">
+            </ImageContainer>
+            <CollectionFooter>
                 <span className="name">{name}</span>
                 <span className="price">{price}</span>
-            </div>
-        </div>
+            </CollectionFooter>
+        </CollectionItemContainer>
     )
 }
+
+const CollectionItemContainer = styled.div`
+    width: 21vw;
+    display: flex;
+    flex-direction: column;
+    height: 350px;
+    align-items: center;
+    margin-bottom: 30px;
+    color: rgb(94, 85, 85);
+    &:hover{
+      .image{
+            opacity: 0.8;
+            button{
+                opacity: 0.9;
+                display: block;
+            }
+        }
+    }
+`
+
+const ImageContainer = styled.div`
+    width: 100%;
+    height: 95%;
+    background-position: center;
+    margin-bottom: 5px;
+    display: flex;
+    align-items:flex-end;
+    justify-content: center;
+    padding-bottom: 25px;
+    background-size: '100% 100%';
+    background-image: ${ (props: {imageUrl: string} ) => `url(${props.imageUrl})`};
+    button{
+    opacity: 0.7;
+    display: none;
+    }
+`
+
+const CollectionFooter = styled.div`
+    width: 100%;
+    height: 5%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+
+    .name {
+    width: 90%;
+    margin-bottom: 15px;
+    }
+
+    .price {
+    width: 10%;
+    }
+`
 
 export default CollectionItem

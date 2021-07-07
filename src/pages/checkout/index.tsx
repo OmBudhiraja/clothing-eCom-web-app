@@ -3,7 +3,7 @@ import {useAppSelector} from '../../redux/hook'
 import {selectCartItems, selectCartTotal} from '../../redux/cart/cartSlice'
 import CheckoutItem from '../../components/checkout-item'
 import StripeCheckoutButton from '../../components/stripe-button'
-import './index.scss'
+import styled from 'styled-components'
 
 const CheckoutPage: React.FC = () => {
 
@@ -11,8 +11,8 @@ const CheckoutPage: React.FC = () => {
     const cartTotal = useAppSelector(state => selectCartTotal(state))
     
     return (
-        <div className="checkout-page">
-            <div className="checkout-header">
+        <CheckoutPageContainer>
+            <CheckoutHeader>
                 <div className="header-block">
                     <span>Product</span>
                 </div>
@@ -28,23 +28,66 @@ const CheckoutPage: React.FC = () => {
                 <div className="header-block">
                     <span>Remove</span>
                 </div>
-            </div>
+            </CheckoutHeader>
 
             {cartItems.map((item) =>
                 <CheckoutItem key={item.id} item={item} />
             )}
 
-            <div className="total">
+            <Total>
                 <span>TOTAL: ${cartTotal}</span>
-            </div>
-            <div className="test-warning">
+            </Total>
+            <TestWarning>
                 *Please use the following test credit card for payments
                 <br />
                 4242 4242 4242 4242 - Exp: 1/22 - CVV: 123
-            </div>
+            </TestWarning>
             <StripeCheckoutButton price={cartTotal} />
-        </div>
+        </CheckoutPageContainer>
     )
 }
+
+
+const CheckoutPageContainer = styled.div`
+    width: 55%;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 50px auto 0;
+    button{
+      margin-left: auto;
+    }
+`
+
+const CheckoutHeader = styled.div`
+    width: 100%;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid darkgrey;
+
+    .header-block {
+    text-transform: capitalize;
+    width: 23%;
+
+    &:last-child {
+        width: 8%;
+    }
+    }
+`
+
+const Total = styled.div`
+    margin-top: 30px;
+    margin-left: auto;
+    font-size: 36px;
+`
+
+const TestWarning = styled.div`
+    color: red;
+    text-align: center;
+    font-size: 20px;
+    margin: 40px 0 30px;
+`
 
 export default CheckoutPage

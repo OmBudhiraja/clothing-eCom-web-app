@@ -2,12 +2,12 @@ import React from 'react'
 import { selectCollectionsForPreview } from '../../redux/shop/shopSlice';
 import { useAppSelector } from '../../redux/hook';
 import CollectionPreview from '../../components/collection-preview/index';
-import './index.scss'
+import styled from 'styled-components'
 
 const CollectionOverview: React.FC = () => {
     const collections = useAppSelector(state => selectCollectionsForPreview(state))
     return (
-        <div className="collection-overview">
+        <CollectionOverviewContainer>
             {collections.map((collection: any) =>
                 <CollectionPreview
                 key={collection.id}
@@ -16,8 +16,13 @@ const CollectionOverview: React.FC = () => {
                 routeName={collection.routeName}
                 />
             )}
-        </div>
+        </CollectionOverviewContainer>
     )
 }
+
+const CollectionOverviewContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+`
 
 export default CollectionOverview

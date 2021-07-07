@@ -3,7 +3,7 @@ import SignIn from '../../components/sign-in';
 import SignUp from '../../components/sign-up';
 // import {useAppSelector} from '../../redux/hook'
 // import {Redirect} from 'react-router'
-import './index.scss'
+import styled from 'styled-components'
 
 const SignInAndSignUpPage: React.FC = () => {
     // const {currentUser} = useAppSelector(state => state.user)
@@ -12,11 +12,18 @@ const SignInAndSignUpPage: React.FC = () => {
     //     return <Redirect to="/" />
     // }
     return (
-        <div className="sign-in-up-page">
+        <SignInAndSignUpPageContainer>
             <SignIn />
             <SignUp />
-        </div>
+        </SignInAndSignUpPageContainer>
     )
 }
+
+
+const SignInAndSignUpPageContainer = styled.div`
+    display: flex;
+    justify-content: space-evenly;
+    margin: 50px auto;
+`
 
 export default SignInAndSignUpPage

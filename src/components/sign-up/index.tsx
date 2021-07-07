@@ -2,7 +2,7 @@ import React, { FormEvent, ChangeEvent, useState } from 'react'
 import FormInput from '../form-input';
 import CustomButton from '../custom-button';
 import { auth, createUserProfileDocument } from '../../firebase/firebaseUtils';
-import './index.scss'
+import styled from 'styled-components'
 
 const SignUp: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -47,9 +47,9 @@ const SignUp: React.FC = () => {
     }
 
     return (
-        <div className="sign-up">
-            <h2 className="title">I don't have an Account!</h2>
-            <span className="sub-head">Sign up with your Email & Password</span>
+        <SignUpContainer>
+            <Title>I don't have an Account!</Title>
+            <SubHead>Sign up with your Email & Password</SubHead>
             <form onSubmit={handleSubmit}>
             <FormInput
             type='text'
@@ -85,8 +85,23 @@ const SignUp: React.FC = () => {
           />
           <CustomButton type='submit'>SIGN UP</CustomButton>
             </form>
-        </div>
+        </SignUpContainer>
     )
 }
+
+const SignUpContainer = styled.div`
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+`
+
+const Title = styled.h2`
+    margin: 15px 0;
+`
+
+const SubHead = styled.span`
+    color: gray;
+    font-weight: 300;
+`
 
 export default SignUp

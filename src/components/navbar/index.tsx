@@ -7,33 +7,70 @@ import CartIcon from '../cart-icon'
 import CartDropdown from '../cart-dropdown';
 import {selectUser} from '../../redux/user/userSlice'
 import {selectCartHidden} from '../../redux/cart/cartSlice'
-import './index.scss'
+import styled, {css} from 'styled-components'
  
 const Navbar: React.FC = () => {
     const currentUser = useAppSelector((state) => selectUser(state))
     const hidden = useAppSelector(state => selectCartHidden(state) )
     return (
-        <div className="navbar">
-            <Link className="logo-container" to="/" >
+        <NavbarContainer>
+            <LogoContainer to="/" >
                <Logo className="logo" />
-            </Link>
-            <div className="options">
-                <Link className="option" to="/shop">
+            </LogoContainer>
+            <OptionsContainer>
+                <OptionLink to="/shop">
                     SHOP
-                </Link>
-                <Link className="option" to="/shop">
+                </OptionLink>
+                <OptionLink to="/shop">
                     CONTACT
-                </Link>
+                </OptionLink>
                 {currentUser ? (
                    <>
-                        <div className="option" onClick={()=> auth.signOut()}>SIGN OUT</div>
+                        <OptionDiv onClick={()=> auth.signOut()}>SIGN OUT</OptionDiv>
                         <CartIcon />
                         { !hidden && <CartDropdown />}
                    </>
-                ) :( <Link className="option" to="/login">SIGN IN</Link>)}
-            </div>
-        </div>
+                ) :( <OptionLink to="/login">SIGN IN</OptionLink>)}
+            </OptionsContainer>
+        </NavbarContainer>
     )
 }
+
+const NavbarContainer = styled.div`
+    height: 70px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+`
+
+const LogoContainer = styled(Link)`
+    height: 100%;
+    width: 70px;
+//   padding: 25px;
+    display: flex;
+    align-items: center;
+`
+
+const OptionsContainer = styled.div`
+    min-width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+`
+
+const Options = css`
+    padding: 10px 15px;
+    cursor: pointer
+`
+
+const OptionLink = styled(Link)`
+   ${Options}
+`
+const OptionDiv = styled.div`
+   ${Options}
+`
+
 
 export default Navbar

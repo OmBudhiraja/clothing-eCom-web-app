@@ -7,7 +7,7 @@ const initialState = {
     collections: shopData
 }
 
-type options = 'hats' | 'jackets' | 'sneakers' | 'mens' | 'womens' 
+// type options = 'hats' | 'jackets' | 'sneakers' | 'mens' | 'womens' 
 
 const ShopSlice = createSlice({
     name: 'shop',
