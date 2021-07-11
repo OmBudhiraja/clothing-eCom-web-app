@@ -2,6 +2,7 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 
+
 const config = {
   apiKey: "AIzaSyDW4SBsgCF7u9OG_cw8NXpHS5INGD5cypw",
   authDomain: "e-commerce-46618.firebaseapp.com",
@@ -16,9 +17,9 @@ firebase.initializeApp(config);
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
-const provider = new firebase.auth.GoogleAuthProvider();
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
 
-export const signInWithGoogle = () => auth.signInWithPopup(provider)
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider)
 
 
 export const createUserProfileDocument = async (userAuth: any, additionalData?: any)=>{
@@ -76,6 +77,16 @@ export const convertCollectionsSnapshotToMap = (collection:any) =>{
     return acc
   } , {})
   // return transformedCollection
+}
+
+
+export const getCurrentUser = ()=>{
+  return new Promise((resolve, reject)=>{
+    const unSubscribe = auth.onAuthStateChanged((userObj: any)=>{
+      unSubscribe()
+      resolve(userObj)
+    }, reject)
+  })
 }
 
 

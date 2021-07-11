@@ -1,17 +1,17 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import {useAppSelector} from '../../redux/hook'
+import {useAppDispatch, useAppSelector} from '../../redux/hook'
 import {ReactComponent as Logo} from '../../assets/4.1 crown.svg'
-import { auth } from '../../firebase/firebaseUtils';
 import CartIcon from '../cart-icon'
 import CartDropdown from '../cart-dropdown';
-import {selectUser} from '../../redux/user/userSlice'
+import {selectUser, signOut} from '../../redux/user/userSlice'
 import {selectCartHidden} from '../../redux/cart/cartSlice'
 import styled, {css} from 'styled-components'
  
 const Navbar: React.FC = () => {
     const currentUser = useAppSelector((state) => selectUser(state))
     const hidden = useAppSelector(state => selectCartHidden(state) )
+    const dispatch = useAppDispatch()
     return (
         <NavbarContainer>
             <LogoContainer to="/" >
@@ -26,7 +26,7 @@ const Navbar: React.FC = () => {
                 </OptionLink>
                 {currentUser ? (
                    <>
-                        <OptionDiv onClick={()=> auth.signOut()}>SIGN OUT</OptionDiv>
+                        <OptionDiv onClick={()=> dispatch(signOut())}>SIGN OUT</OptionDiv>
                         <CartIcon />
                         { !hidden && <CartDropdown />}
                    </>

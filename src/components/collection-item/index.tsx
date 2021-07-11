@@ -62,7 +62,8 @@ const ImageContainer = styled.div`
     align-items:flex-end;
     justify-content: center;
     padding-bottom: 25px;
-    background-size: '100% 100%';
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
     background-image: ${ (props: {imageUrl: string} ) => `url(${props.imageUrl})`};
     button{
     opacity: 0.7;

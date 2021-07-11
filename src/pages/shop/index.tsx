@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import {Route, Switch, useRouteMatch} from 'react-router-dom'
 import CollectionOverview from '../../components/collection-overview'
 import WithSpinner from '../../components/with-spinner'
-import { convertCollectionsSnapshotToMap, firestore } from '../../firebase/firebaseUtils'
-import { useAppDispatch } from '../../redux/hook'
-import { updateCollections } from '../../redux/shop/shopSlice'
+import { useAppDispatch, useAppSelector } from '../../redux/hook'
+import { fetchCollections, selectIsCollectionLoaded } from '../../redux/shop/shopSlice'
 import NotFoundPage from '../404NotFound'
 import CollectionPage from '../collection'
 
@@ -15,26 +14,24 @@ const CollectionPageWithSpinner = WithSpinner(CollectionPage)
 const ShopPage: React.FC = () => {
     const match = useRouteMatch()
     const dispatch = useAppDispatch()
-    const [isLoading, setIsLoading] = useState(true)
+    const {isFetching} = useAppSelector(state => state.shop)
+    const collectionsIsLoaded = useAppSelector(state => selectIsCollectionLoaded(state))
 
     useEffect(()=>{
-        let unSubFromSnap;
-        const collectionRef = firestore.collection('collection')
-        collectionRef.onSnapshot(snap =>{
-            const collections = convertCollectionsSnapshotToMap(snap)
-            dispatch(updateCollections(collections))
-            setIsLoading(false)
-        })
-    })
+        if(!collectionsIsLoaded) {
+            dispatch(fetchCollections())
+        }
+    // eslint-disable-next-line
+    }, [dispatch])
 
     return (
         <div className='shop-page'>
             <Switch>
                 <Route exact path={`${match.path}/`}>
-                    <CollectionOverviewWithPreview isLoading={isLoading} />
+                    <CollectionOverviewWithPreview isLoading={isFetching} />
                 </Route> 
                 <Route exact path={`${match.path}/:collectionId`}>
-                    <CollectionPageWithSpinner isLoading={isLoading} />
+                    <CollectionPageWithSpinner isLoading={!collectionsIsLoaded} />
                 </Route>
                 <Route>
                     <NotFoundPage />

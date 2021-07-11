@@ -6,9 +6,14 @@ import UserReducer from './user/userSlice'
 import CartReducer from './cart/cartSlice'
 import DirectoryReducer from './directory/directorySlice'
 import ShopReducer from './shop/shopSlice'
+import createSagaMiddleware  from 'redux-saga'
+import rootSaga from './rootSaga'
+
+const sagaMiddleware = createSagaMiddleware()
 
 const customizedMiddleware = getDefaultMiddleware({
-  serializableCheck: false
+  serializableCheck: false,
+  thunk: false
 })
 
 const persistConfig = {
@@ -36,10 +41,12 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const store = configureStore({
     reducer: persistedReducer,
-    middleware: customizedMiddleware
+    middleware: [...customizedMiddleware, sagaMiddleware]
   })
 
 
+
+sagaMiddleware.run(rootSaga)
 
 export const persistor = persistStore(store)
 

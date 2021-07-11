@@ -1,30 +1,54 @@
 import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit'
-import shopData from './data'
 import {RootState} from '../store'
 import {memoize} from 'lodash';
 
 type ShopState = {
-    collections: null | {}
+    collections: null | {};
+    isFetching: boolean;
+    errorMsg : undefined | string
 }
 
 const initialState: ShopState = {
-    collections: null
+    collections: null,
+    isFetching: false,
+    errorMsg: undefined
 }
 
-// type options = 'hats' | 'jackets' | 'sneakers' | 'mens' | 'womens' 
 
 const ShopSlice = createSlice({
     name: 'shop',
     initialState,
     reducers: {
-        updateCollections: (state, action: PayloadAction<object>) =>{
+        fetchCollections: (state) => {
+            state.isFetching = true
+        },
+        setCollection: (state, action: PayloadAction<object>) =>{
             state.collections = action.payload
+            state.isFetching = false
+        },
+        setError: (state, action: PayloadAction<string>)=>{
+            state.errorMsg = action.payload
         }
-    }
+    },
+    // extraReducers: (builder) =>{
+    //     builder.addCase(fetchCollections.pending, (state)=>{
+    //         state.isFetching = true
+    //     })
+    //     builder.addCase(fetchCollections.fulfilled, (state, action) =>{
+    //         state.collections = action.payload
+    //         state.isFetching = false
+    //     })
+    //     builder.addCase(fetchCollections.rejected, (state, action) =>{
+    //         state.errorMsg = action.error.message
+    //         state.isFetching = false
+    //     })
+    // }
 })
 
+const selectShop = (state: RootState) => state.shop
+
 export const selectShopCollections = createSelector(
-    [(state: RootState) => state.shop],
+    [selectShop],
     (shop) => shop.collections
 )
 
@@ -40,6 +64,13 @@ createSelector(
 )
 )
 
-export const {updateCollections} = ShopSlice.actions
+
+export const selectIsCollectionLoaded = createSelector(
+    [selectShop],
+    (shop) => !!shop.collections
+
+)
+
+export const {fetchCollections, setCollection, setError} = ShopSlice.actions
 
 export default ShopSlice.reducer

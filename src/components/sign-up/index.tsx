@@ -1,10 +1,12 @@
 import React, { FormEvent, ChangeEvent, useState } from 'react'
 import FormInput from '../form-input';
 import CustomButton from '../custom-button';
-import { auth, createUserProfileDocument } from '../../firebase/firebaseUtils';
 import styled from 'styled-components'
+import { useAppDispatch } from '../../redux/hook';
+import { signUpStart } from '../../redux/user/userSlice';
 
 const SignUp: React.FC = () => {
+    const dispatch = useAppDispatch()
     const [formData, setFormData] = useState({
         displayName: '',
         email: '',
@@ -33,18 +35,14 @@ const SignUp: React.FC = () => {
 
     const handleSubmit = async (e : FormEvent)=>{
         e.preventDefault()
+        const {email, password, displayName} = formData
         if (formData.password !== formData.confirmPassword) {
             alert("Passwords don't match");
             return;
         }
-        try{
-            const { user } = await auth.createUserWithEmailAndPassword( formData.email, formData.password );
-            await createUserProfileDocument(user, { displayName: formData.displayName });
-            clearInputs()
-        }catch(err){
-            console.log(err)
-        }
-    }
+        dispatch(signUpStart({email, password, displayName}))
+        clearInputs()
+    } 
 
     return (
         <SignUpContainer>

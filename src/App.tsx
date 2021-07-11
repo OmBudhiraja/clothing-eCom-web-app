@@ -8,35 +8,19 @@ import NotFoundPage from './pages/404NotFound';
 
 import Navbar from './components/navbar';
 import { Route, Switch, Redirect } from 'react-router-dom'
-import {useAppSelector, useAppDispatch} from './redux/hook'
-import { auth, createUserProfileDocument } from './firebase/firebaseUtils'
-import { setCurrentUser, selectUser } from './redux/user/userSlice';
+import {useAppDispatch, useAppSelector} from './redux/hook'
+import { checkUserSession, selectUser } from './redux/user/userSlice';
+
 
 import './App.css';
 
 
 const App: React.FC = () => {
-  const dispatch = useAppDispatch()
   const currentUser = useAppSelector(state => selectUser(state))
+  const dispatch = useAppDispatch()
 
-
-  useEffect(() => {
-    const authUnsub = auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth)
-        userRef?.onSnapshot(snap =>{
-          dispatch(setCurrentUser({
-            id: snap.id,
-            ...snap.data()
-          }))
-        })
-      }else{
-        dispatch(setCurrentUser(null))
-      }
-    })
-    return () => {
-      authUnsub()
-    }
+  useEffect(()=>{
+    dispatch(checkUserSession())
   }, [dispatch])
 
   return (

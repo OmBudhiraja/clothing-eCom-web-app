@@ -27,11 +27,15 @@ export const CartSlice = createSlice({
         },
         decreaseItemQuantity: (state, action: PayloadAction<SavedItem>)=>{
             state.cartItems = decreaseQuantityFromCart(state.cartItems, action.payload)
+        },
+        clearCart: (state)=>{ },
+        onClearCart: (state)=>{
+            state.cartItems = []
         }
     }
 })
 
-export const {toggleCartHidden, addItem, removeItem, decreaseItemQuantity} = CartSlice.actions
+export const {toggleCartHidden, addItem, removeItem, decreaseItemQuantity, clearCart, onClearCart} = CartSlice.actions
 
 export const selectCartItems = createSelector(
     [(state: RootState)=> state.cart],
