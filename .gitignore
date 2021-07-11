@@ -11,6 +11,7 @@
 
 # production
 /client/build
+
 # misc
 /client/.DS_Store
 /client/.env.local
@@ -22,3 +23,5 @@
 /client/npm-debug.log*
 /client/yarn-debug.log*
 /client/yarn-error.log*
+
+
