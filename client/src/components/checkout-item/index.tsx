@@ -75,7 +75,8 @@ const RemoveBtn = styled.div`
 `
 
 const TextContainer = styled.span`
-    width: 23%
+    width: 23%;
+    text-align:center
 `
 
 const Quantity = styled(TextContainer)`

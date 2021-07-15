@@ -22,7 +22,7 @@ const CheckoutPage: React.FC = () => {
                 <div className="header-block">
                     <span>Quantity</span>
                 </div>
-                <div className="header-block">
+                <div className="header-block price">
                     <span>Price</span>
                 </div>
                 <div className="header-block">
@@ -58,6 +58,9 @@ const CheckoutPageContainer = styled.div`
     button{
       margin-left: auto;
     }
+    @media screen and (max-width: 800px){
+        width: 90%;
+    }
 `
 
 const CheckoutHeader = styled.div`
@@ -68,13 +71,16 @@ const CheckoutHeader = styled.div`
     border-bottom: 1px solid darkgrey;
 
     .header-block {
-    text-transform: capitalize;
-    width: 23%;
+        text-transform: capitalize;
+        width: 23%;
+        &:last-child {
+            width: 8%;
+        }
+    }
+    .price{
+        width: 15%;
+    }    
 
-    &:last-child {
-        width: 8%;
-    }
-    }
 `
 
 const Total = styled.div`

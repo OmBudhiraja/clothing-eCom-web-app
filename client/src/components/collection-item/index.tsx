@@ -51,6 +51,17 @@ const CollectionItemContainer = styled.div`
             }
         }
     }
+    @media screen and (max-width: 800px){
+        width: 45vw;
+        &:hover{
+            .image{
+                    opacity: unset;
+                    button{
+                        opacity: unset;
+                }
+        }
+    }
+    }
 `
 
 const ImageContainer = styled.div`
@@ -69,6 +80,11 @@ const ImageContainer = styled.div`
     opacity: 0.7;
     display: none;
     }
+    @media screen and (max-width: 800px){
+        button{
+            display: block;
+        }
+    }
 `
 
 const CollectionFooter = styled.div`
@@ -85,6 +101,15 @@ const CollectionFooter = styled.div`
 
     .price {
     width: 10%;
+    }
+    @media screen and (max-width: 800px){
+        font-size: 16px;
+        .name{
+            width: 86%;
+        }
+        .price{
+            width: 14%;
+        }
     }
 `
 

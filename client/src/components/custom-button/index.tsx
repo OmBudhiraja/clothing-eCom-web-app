@@ -40,7 +40,7 @@ const ButtonStyled = styled.button`
     height: 50px;
     letter-spacing: 0.5px;
     line-height: 50px;
-    padding: 0 35px 0 35px;
+    padding: 0 25px 0 25px;
     font-size: 15px;
     background-color: black;
     color: white;
@@ -57,6 +57,9 @@ const ButtonStyled = styled.button`
       border: 1px solid black;
     }
     ${getBtnStyles}
+    @media screen and (max-width: 800px){
+        padding: 0 15px;
+    }
 `
 
 export default CustomButton

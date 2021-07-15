@@ -11,9 +11,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import {useAppDispatch, useAppSelector} from './redux/hook'
 import { checkUserSession, selectUser } from './redux/user/userSlice';
 
-
-import './App.css';
-
+import { GlobalStyle } from './globalStyles'
 
 const App: React.FC = () => {
   const currentUser = useAppSelector(state => selectUser(state))
@@ -25,24 +23,25 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <Navbar />
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/shop">
-          <ShopPage />
-        </Route>
-        <Route exact path="/login">
-          {currentUser ? <Redirect to='/' /> : <SignInAndSignUpPage /> }
-        </Route>
-        <Route exact path="/checkout">
-          <CheckoutPage />
-        </Route>
-        <Route>
-          <NotFoundPage />
-        </Route>
-      </Switch>
+      <GlobalStyle />
+        <Navbar />
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/shop">
+            <ShopPage />
+          </Route>
+          <Route exact path="/login">
+            {currentUser ? <Redirect to='/' /> : <SignInAndSignUpPage /> }
+          </Route>
+          <Route exact path="/checkout">
+            <CheckoutPage />
+          </Route>
+          <Route>
+            <NotFoundPage />
+          </Route>
+        </Switch>
     </div>
   )
 }

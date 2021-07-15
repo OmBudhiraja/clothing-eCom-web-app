@@ -42,18 +42,31 @@ const NavbarContainer = styled.div`
     display: flex;
     justify-content: space-between;
     margin-bottom: 30px;
+    @media screen and (max-width: 800px ){
+      padding: 10px;
+      margin-bottom: 20px;
+      height: 60px
+    }
 `
 
 const LogoContainer = styled(Link)`
     height: 100%;
-    width: 70px;
+    width: 50px;
+    svg{
+        width: 100%;
+        height: auto
+    };
 //   padding: 25px;
     display: flex;
     align-items: center;
+    @media screen and (max-width: 800px ){
+        width: 40px
+    }
 `
 
 const OptionsContainer = styled.div`
     min-width: 50%;
+    max-width: 85%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -62,14 +75,18 @@ const OptionsContainer = styled.div`
 
 const Options = css`
     padding: 10px 15px;
-    cursor: pointer
+    cursor: pointer;
+    @media screen and (max-width: 800px ){
+        padding: 13px ;
+    }
 `
 
 const OptionLink = styled(Link)`
    ${Options}
 `
 const OptionDiv = styled.div`
-   ${Options}
+   ${Options};
+   display: contents
 `
 
 
