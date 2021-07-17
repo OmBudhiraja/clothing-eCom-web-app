@@ -12,6 +12,7 @@ const Navbar: React.FC = () => {
     const currentUser = useAppSelector((state) => selectUser(state))
     const hidden = useAppSelector(state => selectCartHidden(state) )
     const dispatch = useAppDispatch()
+
     return (
         <NavbarContainer>
             <LogoContainer to="/" >

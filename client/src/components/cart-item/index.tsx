@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {memo} from 'react'
 import {SavedItem} from '../../redux/cart/cartUtils'
 import styled from 'styled-components'
 
@@ -46,4 +46,4 @@ const Name = styled.span`
     color: black;
 `
 
-export default CartItem
+export default memo(CartItem)
