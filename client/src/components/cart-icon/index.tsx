@@ -1,5 +1,5 @@
 import React from 'react'
-import {ReactComponent as ShoppingIcon} from '../../assets/11.2 shopping-bag.svg'
+import {ReactComponent as ShoppingIcon} from '../../assets/shopping-bag.svg'
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import {toggleCartHidden} from '../../redux/cart/cartSlice'
 import {selectCartItemsCount} from '../../redux/cart/cartSlice'
@@ -26,10 +26,14 @@ const CartIconContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: 15px;
     cursor: pointer;
     .shopping-icon {
       width: 24px;
       height: 24px;
+    };
+    @media screen and (max-width: 800px){
+        margin-left: 0px;
     }
   
 `

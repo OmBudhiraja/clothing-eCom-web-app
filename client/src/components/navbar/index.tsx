@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {useAppDispatch, useAppSelector} from '../../redux/hook'
-import {ReactComponent as Logo} from '../../assets/4.1 crown.svg'
+import {ReactComponent as Logo} from '../../assets/crown.svg'
 import CartIcon from '../cart-icon'
 import CartDropdown from '../cart-dropdown';
 import {selectUser, signOut} from '../../redux/user/userSlice'
@@ -74,7 +74,7 @@ const OptionsContainer = styled.div`
 `
 
 const Options = css`
-    padding: 10px 15px;
+    padding: 10px 30px;
     cursor: pointer;
     @media screen and (max-width: 800px ){
         padding: 13px ;
